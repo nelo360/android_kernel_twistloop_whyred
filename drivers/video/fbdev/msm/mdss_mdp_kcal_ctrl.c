@@ -427,7 +427,6 @@ static ssize_t kcal_invert_store(struct device *dev,
 
 	//disable
 	lut_data->invert = 0;
-
 	return count;
 }
 
