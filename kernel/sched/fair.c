@@ -6567,13 +6567,6 @@ static int cpu_util_wake(int cpu, struct task_struct *p)
 	return min_t(unsigned long, util, capacity_orig_of(cpu));
 }
 
-static int start_cpu(bool prefer_idle)
-{
-	struct root_domain *rd = cpu_rq(smp_processor_id())->rd;
-
-	return prefer_idle ? rd->max_cap_orig_cpu : rd->min_cap_orig_cpu;
-}
-
 static inline int find_best_target(struct task_struct *p, int *backup_cpu,
 				   bool prefer_idle)
 {
@@ -6598,8 +6591,6 @@ static inline int find_best_target(struct task_struct *p, int *backup_cpu,
 	schedstat_inc(p, se.statistics.nr_wakeups_fbt_attempts);
 	schedstat_inc(this_rq(), eas_stats.fbt_attempts);
 
-	/* Find start CPU based on prefer_idle flag*/
-	cpu = start_cpu(prefer_idle);
 	/*
 	 * target_capacity tracks capacity_orig of the most promising candidate
 	 * CPU, which is in most cases the most energy efficient CPU, thus
@@ -6612,6 +6603,13 @@ static inline int find_best_target(struct task_struct *p, int *backup_cpu,
 	if (prefer_idle && boosted)
 		target_capacity = 0;
 
+	/*
+	 * Start from the first maximum capacity CPU.
+	 * This will increase the chances to select a reserved CPU for
+	 * prefer_idle and boosted tasks while not impacting the selection
+	 * of the most energy efficient CPUs in the other cases.
+	 */
+	cpu = rd->max_cap_orig_cpu;
 	if (cpu < 0) {
 		schedstat_inc(p, se.statistics.nr_wakeups_fbt_no_cpu);
 		schedstat_inc(this_rq(), eas_stats.fbt_no_cpu);
