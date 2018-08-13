@@ -75,6 +75,9 @@
 #include <linux/binfmts.h>
 #include <linux/context_tracking.h>
 #include <linux/compiler.h>
+#include <linux/prefetch.h>
+#include <linux/irq.h>
+#include <linux/devfreq_boost.h>
 
 #include <asm/switch_to.h>
 #include <asm/tlb.h>
@@ -2428,6 +2431,9 @@ int sched_fork(unsigned long clone_flags, struct task_struct *p)
 #endif
 
 	put_cpu();
+	if (is_zygote_pid(p->pid)) {
+		devfreq_boost_kick_max(DEVFREQ_MSM_CPUBW, 1250);
+	}
 	return 0;
 }
 
