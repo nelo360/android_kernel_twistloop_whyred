@@ -1,4 +1,3 @@
-
 #include <linux/sched.h>
 #include <linux/sched/sysctl.h>
 #include <linux/sched/rt.h>
@@ -344,6 +343,8 @@ extern int sched_group_set_shares(struct task_group *tg, unsigned long shares);
 struct cfs_bandwidth { };
 
 #endif	/* CONFIG_CGROUP_SCHED */
+
+bool inline tasks_on_big_cores(void);
 
 /* CFS-related fields in a runqueue */
 struct cfs_rq {

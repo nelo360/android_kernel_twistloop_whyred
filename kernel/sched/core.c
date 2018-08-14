@@ -2228,6 +2228,22 @@ void __dl_clear_params(struct task_struct *p)
 }
 
 /*
+* Function for checking if we have tasks on big cores.
+* Can be rather handy for rejecting boost events if
+* cpu load isn't really that high.
+*/
+ bool inline tasks_on_big_cores(void)
+{
+/* First big core on most MSM chips */
+	int i = NR_CPUS / 2;
+	for (i; i < NR_CPUS; ++i)
+		return cpu_rq(i)->nr_running;
+
+	return 0;
+}
+
+
+/*
  * Perform scheduler related setup for a newly forked process p.
  * p is forked by current.
  *
