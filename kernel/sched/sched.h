@@ -440,6 +440,8 @@ struct cpu_cycle {
 
 #endif /* CONFIG_SCHED_HMP */
 
+bool load_on_big_cores(void);
+
 /* CFS-related fields in a runqueue */
 struct cfs_rq {
 	struct load_weight load;
