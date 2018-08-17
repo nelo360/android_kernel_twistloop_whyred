@@ -344,7 +344,7 @@ struct cfs_bandwidth { };
 
 #endif	/* CONFIG_CGROUP_SCHED */
 
-bool inline tasks_on_big_cores(void);
+bool inline load_on_big_cores(void);
 
 /* CFS-related fields in a runqueue */
 struct cfs_rq {

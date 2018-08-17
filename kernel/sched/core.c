@@ -2227,19 +2227,23 @@ void __dl_clear_params(struct task_struct *p)
 	dl_se->dl_yielded = 0;
 }
 
-/*
-* Function for checking if we have tasks on big cores.
-* Can be rather handy for rejecting boost events if
-* cpu load isn't really that high.
-*/
- bool inline tasks_on_big_cores(void)
+/**
+ * Function for checking if we have "heavy" tasks
+ * on big cores. Can be rather handy for rejecting
+ * boost events if cpu load isn't really that high.
+ */
+bool inline load_on_big_cores(void)
 {
-/* First big core on most MSM chips */
-	int i = NR_CPUS / 2;
-	for (i; i < NR_CPUS; ++i)
-		return cpu_rq(i)->nr_running;
+	int i = 0, boost = false;
+	for (i = NR_CPUS / 2; i < NR_CPUS; ++i) {
+		if (cpu_util(i) < 250)
+		/* Skip to next core */
+			continue;
 
-	return 0;
+		boost = true;
+		break;
+	}
+	return boost;
 }
 
 
