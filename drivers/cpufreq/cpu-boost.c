@@ -32,7 +32,7 @@ struct cpu_sync {
 };
 
 static DEFINE_PER_CPU(struct cpu_sync, sync_info);
-static bool input_boost_enabled;
+static bool input_boost_enabled = 0;
 
 static struct kthread_work input_boost_work;
 static unsigned int input_boost_ms = 40;
