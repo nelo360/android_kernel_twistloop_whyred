@@ -23,12 +23,11 @@ obj-$(CONFIG_SCHED_TUNE) += tune.o
 obj-$(CONFIG_CGROUP_CPUACCT) += cpuacct.o
 obj-$(CONFIG_CPU_FREQ) += cpufreq.o
 obj-$(CONFIG_CPU_FREQ_GOV_SCHEDUTIL) += cpufreq_schedutil.o
-obj-y += boost.o
 obj-$(CONFIG_CPU_FREQ_GOV_ELECTROUTIL) += cpufreq_electroutil.o
 obj-$(CONFIG_CPU_FREQ_GOV_PWRUTILX) += cpufreq_pwrutilx.o
 obj-$(CONFIG_CPU_FREQ_GOV_SCHEDALUCARD) += cpufreq_schedalucard.o
-<<<<<<< HEAD
 obj-$(CONFIG_CPU_FREQ_GOV_DARKUTIL) += cpufreq_darkutil.o
-=======
 obj-$(CONFIG_CPU_FREQ_GOV_BLU_SCHEDUTIL) += cpufreq_blu_schedutil.o
->>>>>>> a3997f8... cpufreq: blu_schedutil: Introduce initial bringup
+obj-$(CONFIG_CPU_FREQ_GOV_HELIX) += cpufreq_helix_schedutil.o
+obj-y += boost.o
+
