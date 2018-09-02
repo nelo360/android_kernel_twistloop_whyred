@@ -26,9 +26,9 @@ static unsigned int input_boost_freq_hp = CONFIG_INPUT_BOOST_FREQ_PERF;
 static unsigned short input_boost_duration = CONFIG_INPUT_BOOST_DURATION_MS;
 
 #ifdef CONFIG_DYNAMIC_STUNE_BOOST
-static bool stune_boost_active;
+static bool stune_boost_active = 1;
 static int boost_slot;
-static unsigned short dynamic_stune_boost;
+static unsigned short dynamic_stune_boost = 10;
 module_param(dynamic_stune_boost, short, 0644);
 #endif
 
