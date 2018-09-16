@@ -435,6 +435,16 @@ config REMOVE_INPUT_BOOST_FREQ_PERF
 
 endif
 
+if DYNAMIC_STUNE_BOOST
+
+config DYNAMIC_STUNE_BOOST_VALUE
+	int "Dynamic SchedTune boost value"
+
+	help
+	This option makes dynamic stune boost value 
+	configurable from defconfig
+	
+endif
 comment "CPU frequency scaling drivers"
 
 config CPUFREQ_DT
