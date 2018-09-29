@@ -6574,7 +6574,7 @@ static inline int find_best_target(struct task_struct *p, int *backup_cpu,
 	 * performance CPU, thus requiring to maximise target_capacity. In this
 	 * case we initialise target_capacity to 0.
 	 */
-	if (prefer_idle && boosted)
+	if (prefer_idle)
 		target_capacity = 0;
 
 	/*
@@ -6679,11 +6679,9 @@ static inline int find_best_target(struct task_struct *p, int *backup_cpu,
 				 * efficient CPU (i.e. smallest capacity_orig)
 				 */
 				if (idle_cpu(i)) {
-					if (boosted &&
-					   (capacity_orig <= target_capacity))
+					if (capacity_orig <= target_capacity)
 						continue;
-					if (!boosted &&
-					   (capacity_orig >= target_capacity))
+					if (capacity_orig >= target_capacity)
 						continue;
 
 					target_capacity = capacity_orig;
